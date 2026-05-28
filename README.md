@@ -81,6 +81,40 @@ Refresh Schema
 
 ---
 
+## Quick Setup (Advanced)
+
+If you already know Claude Code and just want to understand what gets created:
+
+```
+AskSQLServer\
+  config\
+    config.ps1           -- connection settings
+    sql-credential.xml   -- DPAPI-encrypted password (SQL auth only)
+  scripts\
+    Initialize-Schema.ps1
+    Run-Query.ps1
+  schema\
+    YourDB-schema.md     -- built during setup
+  output\                -- HTML reports saved here
+  CLAUDE.md
+  .gitignore
+```
+
+`config\config.ps1` is the only file you need to edit if you want to change settings after setup:
+
+```powershell
+$SqlInstance     = 'MYSERVER\SQLEXPRESS'
+$DatabaseName    = 'SalesDB'
+$AuthType        = 'Windows'   # or 'SQL'
+$SqlUsername     = ''          # SQL auth only
+$OutputPath      = 'C:\Temp\AskSQLServer'
+$DefaultRowLimit = 1000
+```
+
+After editing `config.ps1` directly, run `Refresh Schema` to rebuild the schema file.
+
+---
+
 ## Safety
 
 Read-only. Claude will not execute DROP, DELETE, TRUNCATE, ALTER, or any statement
